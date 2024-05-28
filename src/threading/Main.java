@@ -59,8 +59,28 @@ public class Main {
 		
 		
 		//Volatile Demo - 2
-		new ReadThread().start();
-		new WriteThread().start();
+//		new ReadThread().start();
+//		new WriteThread().start();
+		
+		
+		//Synchronization Demo - 2
+//		while(true) {
+//			PracticeCount countObj = new PracticeCount();
+//			Thread t1 = new Practice1(countObj);
+//			Thread t2 = new Practice2(countObj);
+//			
+//			t1.start();
+//			t2.start();
+//			
+//			try {
+//	            t1.join(); // Wait for t1 to finish
+//	            t2.join(); // Wait for t2 to finish
+//	        } catch (InterruptedException e) {
+//	            e.printStackTrace();
+//	        }
+//			
+//			System.out.println(countObj.getVal());
+//		}
 		
 	}
 }
