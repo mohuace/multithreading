@@ -38,7 +38,7 @@ public class ThreadSync extends Thread {
 //			System.out.println(counter.getCount());
 			
 			//This will create critical section based on counter object
-			//If we use this object, it will create CS based on Thread objects
+			//If we use "this" object, it will create CS based on Thread objects -- as good as non synchronized
 			//That will again cause random results because new CS will be created for each thread
 			//and then all of them will update the count randomly because there would be separate
 			//rooms for each thread

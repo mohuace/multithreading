@@ -82,5 +82,90 @@ public class Main {
 //			System.out.println(countObj.getVal());
 //		}
 		
+		
+		//Join thread demo
+//		Thread t1 = new JoinThread();
+//		t1.start();
+//		
+//		//Main thread will wait for t1 to finish executing (exit run method) and then the rest of the code
+//		//will be executed.
+//		try {
+//			t1.join();
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//		System.out.println("Exiting main thread");
+		
+		
+		//Producer Consumer Demo
+//		MessageBean message = new MessageBean();
+//		Producer thread1 = new Producer(message);
+//		Consumer thread2 = new Consumer(message);
+		
+		//thread1.start();
+//		
+//		//If we add a long wait after thread1.start, what this will do is producer will wait for 2 seconds,
+//		//then main thread will wait another 5 seconds in the meanwhile producer will wake up and produce message
+//		//and then send notify. This notify signal goes waste because there is no thread waiting for the notification.
+//		//Thread 2 which is the consumer will be called, then it will aquire the lock on the object and then
+//		//because the message is already produced, the print statement outside will be printed.
+//		
+//		
+//		//Normal behaviour that we want is producer wait for 2 seconds, in the meanwhile consumer will aquire the lock and
+//		//call wait, this will release the lock and then the producer will produce message and send notify which will release lock,
+//		//this will wake up consumer which will again aquire the lock and then print the message that the message
+//		//has been produced.
+		
+		
+		//This code ensures that if producer is running first entirely, then it will produce the message and 
+		//consumer can directly print that message. However, if producer is going to sleep and then consumer 
+		//is aquiring lock before message has been produced, then it will wait for the producer to produce the
+		//message and then consume the data. So it works always.
+//		
+////		try {
+////			Thread.sleep(5000);
+////		} catch (InterruptedException e) {
+////			// TODO Auto-generated catch block
+////			e.printStackTrace();
+////		}
+//		
+		//thread2.start();
+		
+		
+		//Interrupts - Demo 1
+//		Thread interruptThread = new InterruptThread();
+//		interruptThread.start();
+//		
+//		//Make sure that the thread starts and then we interrupt it
+//		
+//		try {
+//			Thread.sleep(2000);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//		interruptThread.interrupt();
+		
+		//Interrupts - Demo 2
+		//I want to check what if we send interrupt to a thread and there is no throw new InterruptedException called
+		Thread intThread = new InterruptDemo();
+		intThread.start();
+		
+		//Waiting for thread to start
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		intThread.interrupt();
+		
+		
+		
+		
 	}
 }
