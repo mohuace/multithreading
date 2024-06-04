@@ -1,5 +1,8 @@
 package threading;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Main {
 	
 	//If this isn't volatile, the read thread does not take latest value from main memory
@@ -151,18 +154,91 @@ public class Main {
 		
 		//Interrupts - Demo 2
 		//I want to check what if we send interrupt to a thread and there is no throw new InterruptedException called
-		Thread intThread = new InterruptDemo();
-		intThread.start();
+//		Thread intThread = new InterruptDemo();
+//		intThread.start();
+//		
+//		//Waiting for thread to start
+//		try {
+//			Thread.sleep(1000);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//		intThread.interrupt();
 		
-		//Waiting for thread to start
+		
+		//Understanding the importance of having Immutable classes as final
+//		Immutable immutable = new Immutable(5);
+//		Mutable mutable = new Mutable(6);
+//		
+//		System.out.println(immutable.getValue());
+//		
+//		
+//		//The mutable object's reference is copied to the immutable object
+//		//so whatever updates we do on the mutable object will be reflected on the "immutable" object too.
+//		//Hence we need immutable class to be final.
+//		immutable = (Immutable) mutable;
+//		
+//		
+//		mutable.setValue(25);
+//		
+//		System.out.println(immutable.getValue());
+		
+		
+		//Understanding Immutable class but mutable object references
+//		ImmClass immObj1 = new ImmClass(5);
+//		ImmClass immObj2 = new ImmClass(6);
+//		
+//		immObj2 = immObj1;
+//		
+//		//Because the reference of the immObj1 object is copied to immObj2, output will be 5
+//		System.out.println(immObj2.getValue());
+//		
+//		//We can keep the objects final as well.
+//		final ImmClass im1 = new ImmClass(5);
+//		final ImmClass im2 = new ImmClass(6);
+//		
+//		//Throws error because we can't change.
+//		//im2 = im1;
+//		
+//		//Should print 6
+//		System.out.println(im2.getValue());
+		
+		
+		//Example of Immutable Class
+		List<String> carIngredients = new ArrayList<String>();
+		
+		carIngredients.add("tyre");
+		carIngredients.add("wipers");
+		
+		final Product prod = new Product("Car", 123, carIngredients);
+		
+		carIngredients.add("windows");
+		
+		//This will return tyre and wipers when immutable class
+		//or tyre wipers and windows when mutable
+		System.out.println(prod.getIngredients());
+		
+		//Need to make sure the method also does not return the reference
+		List<String> carss = prod.getIngredients();
+		
 		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			carss.add("Dummyyy");
+		} catch(UnsupportedOperationException e) {
+			System.out.println(e);
 		}
 		
-		intThread.interrupt();
+		
+		System.out.println(prod.getIngredients());
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		
