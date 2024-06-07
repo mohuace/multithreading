@@ -2,6 +2,8 @@ package threading;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class Main {
 	
@@ -207,30 +209,61 @@ public class Main {
 		
 		
 		//Example of Immutable Class
-		List<String> carIngredients = new ArrayList<String>();
+//		List<String> carIngredients = new ArrayList<String>();
+//		
+//		carIngredients.add("tyre");
+//		carIngredients.add("wipers");
+//		
+//		final Product prod = new Product("Car", 123, carIngredients);
+//		
+//		carIngredients.add("windows");
+//		
+//		//This will return tyre and wipers when immutable class
+//		//or tyre wipers and windows when mutable
+//		System.out.println(prod.getIngredients());
+//		
+//		//Need to make sure the method also does not return the reference
+//		List<String> carss = prod.getIngredients();
+//		
+//		try {
+//			carss.add("Dummyyy");
+//		} catch(UnsupportedOperationException e) {
+//			System.out.println(e);
+//		}
+//		
+//		
+//		System.out.println(prod.getIngredients());
 		
-		carIngredients.add("tyre");
-		carIngredients.add("wipers");
+		//Atomic Variables - AtomicInteger and AtomicReference
+		final AtomicInteger atomicInt = new AtomicInteger(0);
+		//This happens atomically - non divisible
+		atomicInt.incrementAndGet();
+		System.out.println("Value is: "+atomicInt);
 		
-		final Product prod = new Product("Car", 123, carIngredients);
+		atomicInt.addAndGet(10);
+		System.out.println("Value is: "+atomicInt);
 		
-		carIngredients.add("windows");
+		final AtomicReference<String> atomicString = new AtomicReference<String>("boss");
+		boolean changed = atomicString.compareAndSet("boss", "BOSS");
 		
-		//This will return tyre and wipers when immutable class
-		//or tyre wipers and windows when mutable
-		System.out.println(prod.getIngredients());
-		
-		//Need to make sure the method also does not return the reference
-		List<String> carss = prod.getIngredients();
-		
-		try {
-			carss.add("Dummyyy");
-		} catch(UnsupportedOperationException e) {
-			System.out.println(e);
-		}
+		System.out.println("Changed: "+changed+" ,value is: "+atomicString);
 		
 		
-		System.out.println(prod.getIngredients());
+		
+		
+		
+		//Deadlocks
+		//When two threads are waiting for each other to release a lock,
+		//it causes deadlock
+		
+//		Object obj1 = new Object();
+//		Object obj2 = new Object();
+//		
+//		final Thread thread1 = new DeadlockThread1(obj1, obj2);
+//		final Thread thread2 = new DeadlockThread2(obj1, obj2);
+//		
+//		thread1.start();
+//		thread2.start();
 		
 		
 		
