@@ -38,13 +38,13 @@ public class Main {
 		//Putting the Counter counter = new Counter() line inside the for loop will not cause
 		//any issues because every thread will have its own separate counter object and it will repeatedly
 		//increment and decrement that object itself.
-//		Counter counter = new Counter();
-//		
-//		for(int i = 1 ; i <= 100 ; i++) {
-//			
-//			Thread thread = new ThreadSync(counter);
-//			thread.start();
-//		}
+		Counter counter = new Counter();
+
+		for(int i = 1 ; i <= 100 ; i++) {
+
+			Thread thread = new ThreadSync(counter);
+			thread.start();
+		}
 		
 		
 		//Volatile Demo - 1

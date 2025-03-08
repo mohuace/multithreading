@@ -9,7 +9,7 @@ public class ThreadSync extends Thread {
 	}
 	
 	
-	public void run() {
+	public synchronized void run() {
 		
 		//Running inside while loop to make the issue visible.
 		//Basically each thread is running indefinitely and updating the same counter object
@@ -19,7 +19,7 @@ public class ThreadSync extends Thread {
 		
 		while(true) {
 			
-//			counter.increment();
+			counter.increment();
 //			
 //			//Using synchronized keyword on the methods seems to be working fine.
 //			//However, problem arises when we use thread.sleep.
@@ -27,15 +27,21 @@ public class ThreadSync extends Thread {
 //			//in the meanwhile other thread comes in and increments the counter then again goes to sleep
 //			//this will happen for 100 threads and somewhere in between a thread will wake up and do
 //			//decrement and then get the count which will definitely not be 0.
-//			try {
-//				Thread.sleep(1000);
-//			} catch(Exception e) {
-//				System.out.println(e);
-//			}
-//			
-//			counter.decrement();
-//			
-//			System.out.println(counter.getCount());
+			try {
+				Thread.sleep(1000);
+			} catch(Exception e) {
+				System.out.println(e);
+			}
+
+			//Even if do a synchronized on increment and decrement, that will make increment and decrement
+			//as atomic. However, this particular block entirely is not atomic, so when one thread goes to sleep
+			//other thread can come and update which will give strange results
+			//counter.increment(), counter.decrement(), counter.getCount(), these 3 are individually atomic but
+			//not atomic together as a whole.
+
+			counter.decrement();
+
+			System.out.println(counter.getCount());
 			
 			//This will create critical section based on counter object
 			//If we use "this" object, it will create CS based on Thread objects -- as good as non synchronized
@@ -43,18 +49,20 @@ public class ThreadSync extends Thread {
 			//and then all of them will update the count randomly because there would be separate
 			//rooms for each thread
 			//ASK - Do we still need synchronized methods in Counter class?
-			synchronized(counter) {
-				counter.increment();
-				try {
-					Thread.sleep(1000);
-				} catch(Exception e) {
-					System.out.println(e);
-				}
-				
-				counter.decrement();
-				
-				System.out.println(counter.getCount());
-			}
+			//I dont think so because we have made the entire operation of increment, decrement and print as atomic,
+			//so it doesnt matter whether individual methods are kept as atomic (synchronized) or not
+//			synchronized(counter) {
+//				counter.increment();
+//				try {
+//					Thread.sleep(1000);
+//				} catch(Exception e) {
+//					System.out.println(e);
+//				}
+//
+//				counter.decrement();
+//
+//				System.out.println(counter.getCount());
+//			}
 		}
 	}
 	
