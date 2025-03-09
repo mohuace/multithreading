@@ -38,13 +38,13 @@ public class Main {
 		//Putting the Counter counter = new Counter() line inside the for loop will not cause
 		//any issues because every thread will have its own separate counter object and it will repeatedly
 		//increment and decrement that object itself.
-		Counter counter = new Counter();
-
-		for(int i = 1 ; i <= 100 ; i++) {
-
-			Thread thread = new ThreadSync(counter);
-			thread.start();
-		}
+//		Counter counter = new Counter();
+//
+//		for(int i = 1 ; i <= 100 ; i++) {
+//
+//			Thread thread = new ThreadSync(counter);
+//			thread.start();
+//		}
 		
 		
 		//Volatile Demo - 1
@@ -69,23 +69,23 @@ public class Main {
 		
 		
 		//Synchronization Demo - 2
-//		while(true) {
-//			PracticeCount countObj = new PracticeCount();
-//			Thread t1 = new Practice1(countObj);
-//			Thread t2 = new Practice2(countObj);
-//			
-//			t1.start();
-//			t2.start();
-//			
-//			try {
-//	            t1.join(); // Wait for t1 to finish
-//	            t2.join(); // Wait for t2 to finish
-//	        } catch (InterruptedException e) {
-//	            e.printStackTrace();
-//	        }
-//			
-//			System.out.println(countObj.getVal());
-//		}
+		while(true) {
+			PracticeCount countObj = new PracticeCount();
+			Thread t1 = new Practice1(countObj);
+			Thread t2 = new Practice2(countObj);
+
+			t1.start();
+			t2.start();
+
+			try {
+	            t1.join(); // Wait for t1 to finish
+	            t2.join(); // Wait for t2 to finish
+	        } catch (InterruptedException e) {
+	            e.printStackTrace();
+	        }
+
+			System.out.println(countObj.getVal());
+		}
 		
 		
 		//Join thread demo
@@ -235,18 +235,18 @@ public class Main {
 //		System.out.println(prod.getIngredients());
 		
 		//Atomic Variables - AtomicInteger and AtomicReference
-		final AtomicInteger atomicInt = new AtomicInteger(0);
+		//final AtomicInteger atomicInt = new AtomicInteger(0);
 		//This happens atomically - non divisible
-		atomicInt.incrementAndGet();
-		System.out.println("Value is: "+atomicInt);
-		
-		atomicInt.addAndGet(10);
-		System.out.println("Value is: "+atomicInt);
-		
-		final AtomicReference<String> atomicString = new AtomicReference<String>("boss");
-		boolean changed = atomicString.compareAndSet("boss", "BOSS");
-		
-		System.out.println("Changed: "+changed+" ,value is: "+atomicString);
+//		atomicInt.incrementAndGet();
+//		System.out.println("Value is: "+atomicInt);
+//
+//		atomicInt.addAndGet(10);
+//		System.out.println("Value is: "+atomicInt);
+//
+//		final AtomicReference<String> atomicString = new AtomicReference<String>("boss");
+//		boolean changed = atomicString.compareAndSet("boss", "BOSS");
+//
+//		System.out.println("Changed: "+changed+" ,value is: "+atomicString);
 		
 		
 		
